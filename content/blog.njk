@@ -1,0 +1,10 @@
+---js
+const eleventyNavigation = {
+	key: "所有文章Archive",
+	order: 2
+};
+---
+<h1>所有文章 Archive</h1>
+
+{% set postslist = collections.posts %}
+{% include "postslist.njk" %}

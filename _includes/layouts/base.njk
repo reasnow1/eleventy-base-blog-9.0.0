@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="{{ metadata.language }}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{{ title or metadata.title }}</title>
+		<meta name="description" content="{{ description or metadata.description }}">
+		<link rel="alternate" href="feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
+		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
+		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
+
+		{#-
+		Plain-text bundles are provided via the `eleventy-plugin-bundle` plugin:
+		1. CSS:
+			* Add to a per-page bundle using `{% css %}{% endcss %}`
+			* Retrieve bundle content using `{% getBundle "css" %}` or `{% getBundleFileUrl "css" %}`
+		2. Or for JavaScript:
+			* Add to a per-page bundle using `{% js %}{% endjs %}`
+			* Retrieve via `{% getBundle "js" %}` or `{% getBundleFileUrl "js" %}`
+		3. Learn more: https://github.com/11ty/eleventy-plugin-bundle
+		#}
+
+		{#- Add an arbitrary string to the bundle #}
+		{%- css %}/* This is an arbitrary CSS string added to the bundle */{% endcss %}
+		{#- Add the contents of a file to the bundle #}
+		{%- css %}{% include "public/css/index.css" %}{% endcss %}
+		{#- Or you can add from node_modules #}
+		{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
+
+		{#- Render the CSS bundle using inlined CSS (for the fastest site performance in production) #}
+		<style>{% getBundle "css" %}</style>
+		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
+		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
+
+		{#- Add the heading-anchors web component to the JavaScript bundle #}
+		{%- js %}{% include "node_modules/@zachleat/heading-anchors/heading-anchors.js" %}{% endjs %}
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/" class="home-link">{{ metadata.title }}</a>
+
+			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
+			<nav>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
+				<ul class="nav">
+				{%- for entry in collections.all | eleventyNavigation %}
+					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
+				{%- endfor %}
+			</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			<heading-anchors>
+				{{ content | safe }}
+			</heading-anchors>
+		</main>
+
+		<footer>
+			<p><em>Built with <a href="https://www.11ty.dev/">{{ eleventy.generator }}</a></em>
+			　
+			<button id="themeToggle" style="Background-color: transparent; color: var(--text-color);">🌓 切换主题Theme</button>
+			{#- 此处添加按钮 #}
+			　
+			<button id="backToTopBtn" title="Go to top" style="Background-color: transparent; color: var(--text-color);">▲</button>
+			</p>
+		</footer>
+
+		<!-- This page `{{ page.url | htmlBaseUrl }}` was built on {% currentBuildDate %} -->
+		<script type="module" src="{% getBundleFileUrl "js" %}"></script>
+		{#- 手动亮暗 #}
+		<script>
+		const btn=document.getElementById('themeToggle');
+		const root=document.documentElement;
+		const saved=localStorage.getItem('theme');
+		if(saved) root.setAttribute('data-theme',saved);
+		btn.onclick=()=>{
+		const cur=root.getAttribute('data-theme');
+		const next=cur==='dark'?'light':'dark';
+		root.setAttribute('data-theme',next);
+		localStorage.setItem('theme',next);
+		};
+		</script>
+		{#- copy button #}
+		<script>
+		(function() {
+			// Wait for DOM to be fully loaded
+			document.addEventListener('DOMContentLoaded', function() {
+			// Find all pre > code blocks
+			const blocks = document.querySelectorAll('pre:has(code)');
+			const copyButtonLabel = 'Copy';
+
+			blocks.forEach((pre) => {
+				// Create wrapper
+				const wrapper = document.createElement('div');
+				wrapper.className = 'code-wrapper';
+				pre.parentNode.insertBefore(wrapper, pre);
+				wrapper.appendChild(pre);
+
+				// Create button
+				const button = document.createElement('button');
+				button.innerText = copyButtonLabel;
+				button.classList.add('copy-button');
+				wrapper.appendChild(button);
+
+				// Copy function using execCommand (works on HTTP)
+				button.addEventListener('click', function() {
+				const code = pre.querySelector('code');
+				const text = code.innerText;
+
+				// Create a temporary textarea to hold the text
+				const textarea = document.createElement('textarea');
+				textarea.value = text;
+				// Make it invisible but part of the DOM
+				textarea.style.position = 'fixed';
+				textarea.style.top = '-9999px';
+				textarea.style.left = '-9999px';
+				document.body.appendChild(textarea);
+				textarea.select();
+				textarea.setSelectionRange(0, text.length); // For mobile
+
+				let success = false;
+				try {
+					success = document.execCommand('copy');
+				} catch (err) {
+					console.error('Copy failed:', err);
+				}
+				document.body.removeChild(textarea);
+
+				// Visual feedback
+				if (success) {
+					button.innerText = 'Copied';
+				} else {
+					button.innerText = 'Failed';
+				}
+				setTimeout(() => {
+					button.innerText = copyButtonLabel;
+				}, 700);
+				});
+			});
+			});
+		})();
+		</script>
+{#- GO TO TOP button #}
+<script>
+	// Back to top button
+(function() {
+  const btn = document.getElementById('backToTopBtn');
+  if (!btn) return;
+
+  // Show/hide button based on scroll position
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {  // Show after 300px of scrolling
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  });
+
+  // Scroll to top when clicked
+  btn.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'   // Smooth scrolling
+    });
+  });
+})();
+</script>
+	</body>
+</html>

@@ -1,0 +1,14 @@
+---js
+const eleventyNavigation = {
+	key: "标签Tags",
+	order: 3
+};
+---
+<h1>标签 Tags</h1>
+
+<ul>
+{% for tag in collections | getKeys | filterTagList %}
+	{% set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
+	<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a></li>
+{% endfor %}
+</ul>

@@ -1,0 +1,25 @@
+---js
+// <script>
+const pagination = {
+	data: "collections",
+	size: 1,
+	alias: "tag",
+	filter: ["all", "posts"],
+	// addAllPagesToCollections: true,
+};
+
+const eleventyExcludeFromCollections = true;
+
+const eleventyComputed = {
+	title: "Tagged '{{ tag }}'",
+	permalink: function(data) {
+		return `/tags/${this.slugify(data.tag)}/`;
+	}
+};
+---
+<h1>标签 “{{ tag }}” Tagged “{{ tag }}”</h1>
+
+{% set postslist = collections[ tag ] %}
+{% include "postslist.njk" %}
+
+<p>查看<a href="tags.njk">所有标签</a>。See <a href="tags.njk">all tags</a>.</p>
