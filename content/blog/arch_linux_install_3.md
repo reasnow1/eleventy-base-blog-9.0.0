@@ -70,13 +70,15 @@ amdgpu.dc=0
 直接放弃思考了，deepseek给什么执行什么。
 ```bash
 pacman -S noto-fonts-cjk wqy-microhei wqy-zenhei
+```
+deepseek建议把
+```bash
 nano /etc/locale.gen
 ```
-把
 ```config
 #zh_CN.UTF-8 UTF-8
 ```
-之类的全部取消注释
+之类的全部取消注释，但其实不注释也行。
 ```bash
 locale-gen
 ```
