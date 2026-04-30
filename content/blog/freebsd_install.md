@@ -248,3 +248,5 @@ hw.acpi.video.lcd0.brightness: 100 -> 0
    ```sh
    echo 'blank_screen_enable="YES"' >> /etc/rc.conf
    ```
+
+注：如果后面犯病没网，就把网线拨了，重启，完全启动后，再插网线。
