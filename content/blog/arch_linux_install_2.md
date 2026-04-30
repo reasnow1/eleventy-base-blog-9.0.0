@@ -59,7 +59,7 @@ then
 
 ```bash
 cat > /etc/systemd/network/20-wired.network << EOF
-[Watch]
+[Match]
 Name=enp5s0
 [Network]
 DHCP=yes
@@ -98,7 +98,7 @@ systemctl enable systemd-resolved
 现在有网了you can
 
 ```bash
-pacman -Syy
+pacman -Syu
 ```
 
 now
