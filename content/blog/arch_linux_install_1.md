@@ -51,7 +51,7 @@ cat /sys/firmware/efi/fw_platform_size
 很好，继续
 
 ```bash
-ping 223.6.6.6
+ping www.baidu.com
 ```
 
 我没有任何设置，插网线到主板上，就可以上网了。
@@ -139,7 +139,15 @@ pacstrap -K /mnt base linux linux-firmware nano
 现在继续，到time部分，补上天朝的时区
 
 ```bash
-ln -sf /usr/share/zoneinfo/Area/Location /etc/localtime
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
+如果有windows装着，可能时间已经是正确的，不用设时区。检查时间：
+```bash
+timedatectl
+```
+使用标准时间：
+```bash
+ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
 ```
 
 设置locale，主机名，Initramfs（LVM用的）可不鸟，就设个root密码
