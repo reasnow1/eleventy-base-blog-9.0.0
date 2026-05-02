@@ -4,7 +4,7 @@ description: This is a post on My Blog about agile frameworks.
 date: 2026-05-03
 tags: Debian
 ---
-在代理环境下启动浏览器
+在代理环境下启动浏览器（保存为.sh文件使用）
 
 to run vivaldi under proxy, use this .sh
 ```sh
