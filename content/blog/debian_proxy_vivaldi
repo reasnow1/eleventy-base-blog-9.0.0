@@ -1,0 +1,9 @@
+在代理环境下启动浏览器
+
+to run vivaldi under proxy, use this .sh
+```sh
+#!/bin/bash
+export http_proxy=http://127.0.0.1:7897
+export https_proxy=http://127.0.0.1:7897
+vivaldi
+```
