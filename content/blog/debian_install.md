@@ -8,7 +8,7 @@ tags: Debian
 ## 下载地址
 
 ```text
-https://mirror.nyist.edu.cn/debian-cd/current/amd64/iso-cd/debian-13.4.0-amd64-netinst.iso
+https://mirror.sysu.edu.cn/debian-cd/current/amd64/iso-cd/debian-13.4.0-amd64-netinst.iso
 ```
 
 ## 安装过程关键点
@@ -21,7 +21,7 @@ https://mirror.nyist.edu.cn/debian-cd/current/amd64/iso-cd/debian-13.4.0-amd64-n
 - 注意看清要安装的硬盘，在 **GRUB 安装位置** 的选择界面，选择与 Debian 同一块硬盘。
 
 ### 镜像源选择
-- 地理位置最近的镜像：`https://mirror.nyist.edu.cn/`
+- 地理位置最近的镜像：`https://mirror.sysu.edu.cn/`
 - 如果有代理，可以暂时选择 `debian.org`
 - **一定要打开代理**，因为需要安装 GNOME 桌面。
 
@@ -57,15 +57,15 @@ sudo update-grub
 ```bash
 #deb cdrom:[Debian GNU/Linux 13.4.0 _Trixie_ - Official amd64 NETINST with firmware 20260314-11:53]/ trixie contrib main non-free-firmware
 
-deb https://mirror.nyist.edu.cn/debian/ trixie main contrib non-free non-free-firmware
-deb-src https://mirror.nyist.edu.cn/debian/ trixie main contrib non-free non-free-firmware
+deb https://mirror.sysu.edu.cn/debian/ trixie main contrib non-free non-free-firmware
+deb-src https://mirror.sysu.edu.cn/debian/ trixie main contrib non-free non-free-firmware
 
-deb https://mirror.nyist.edu.cn/debian-security trixie-security main contrib non-free non-free-firmware
-deb-src https://mirror.nyist.edu.cn/debian-security trixie-security main contrib non-free non-free-firmware
+deb https://mirror.sysu.edu.cn/debian-security trixie-security main contrib non-free non-free-firmware
+deb-src https://mirror.sysu.edu.cn/debian-security trixie-security main contrib non-free non-free-firmware
 
 # trixie-updates
-deb https://mirror.nyist.edu.cn/debian/ trixie-updates main contrib non-free non-free-firmware
-deb-src https://mirror.nyist.edu.cn/debian/ trixie-updates main contrib non-free non-free-firmware
+deb https://mirror.sysu.edu.cn/debian/ trixie-updates main contrib non-free non-free-firmware
+deb-src https://mirror.sysu.edu.cn/debian/ trixie-updates main contrib non-free non-free-firmware
 ```
 
 更新软件源：
